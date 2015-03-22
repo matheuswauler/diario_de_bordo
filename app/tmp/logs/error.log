@@ -1,0 +1,31 @@
+2015-03-22 18:46:44 Error: Fatal Error (1): Class 'AppModel' not found in [/Applications/MAMP/htdocs/diario/app/Model/AppModel.php, line 3]
+2015-03-22 18:46:44 Error: [FatalErrorException] Class 'AppModel' not found
+Request URL: /diario/
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario/lib/Cake/Error/ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Class 'AppModel...', '/Applications/M...', 3)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'AppModel...', '/Applications/M...', 3, Array)
+#2 /Applications/MAMP/htdocs/diario/lib/Cake/Core/App.php(931): call_user_func('ErrorHandler::h...', 1, 'Class 'AppModel...', '/Applications/M...', 3, Array)
+#3 /Applications/MAMP/htdocs/diario/lib/Cake/Core/App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-03-22 18:49:20 Error: Fatal Error (1): Class 'AppModel' not found in [/Applications/MAMP/htdocs/diario/app/Model/AppModel.php, line 3]
+2015-03-22 18:49:20 Error: [FatalErrorException] Class 'AppModel' not found
+Request URL: /diario/
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario/lib/Cake/Error/ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Class 'AppModel...', '/Applications/M...', 3)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'AppModel...', '/Applications/M...', 3, Array)
+#2 /Applications/MAMP/htdocs/diario/lib/Cake/Core/App.php(931): call_user_func('ErrorHandler::h...', 1, 'Class 'AppModel...', '/Applications/M...', 3, Array)
+#3 /Applications/MAMP/htdocs/diario/lib/Cake/Core/App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-03-22 18:50:33 Error: [MissingActionException] Action AppController::webroot() could not be found.
+Exception Attributes: array (
+  'controller' => 'AppController',
+  'action' => 'webroot',
+)
+Request URL: /diario/app/webroot/videos/home.mp4
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/diario/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(AppController), Object(CakeRequest))
+#2 /Applications/MAMP/htdocs/diario/app/webroot/index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
