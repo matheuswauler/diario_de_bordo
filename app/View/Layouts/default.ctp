@@ -19,7 +19,7 @@
 <body>
 	<div id="container">
 		<header id="header">
-			
+			<?php echo $this->Html->image('logo_white.svg', array('fullBase' => true, 'alt' => 'Diário de bordo', 'width' => '170')); ?>
 		</header>
 
 		<div id="content">
