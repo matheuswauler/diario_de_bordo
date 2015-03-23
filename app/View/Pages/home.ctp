@@ -10,7 +10,11 @@
 
 				echo $this->Form->end('OK');
 
-				echo $this->Html->link('Não é cadastrado? Crie uma conta aqui.', '/', array('full_base' => true, 'class' => 'signup_link'));
+				echo $this->Html->link(
+					'Não é cadastrado? Crie uma conta aqui.',
+					array('controller' => 'users', 'action' => 'signup'),
+					array('full_base' => true, 'class' => 'signup_link')
+				);
 			?>
 		</div>
 	</div>

@@ -184,6 +184,42 @@ input[type=submit]:active{
 	text-align: right;
 }
 
+.left_content{
+	width: 50%;
+	float: left;
+	padding-right: 50px;
+	box-sizing: border-box;
+}
+.default_blue_title{
+	font-size: 36px;
+	color: #36a1fc;
+	font-weight: 300;
+	line-height: 1em;
+	margin: 1em 0;
+}
+.signup_motives{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.signup_motives li{
+	margin: 50px 0;
+}
+.signup_motives li span.motive_icon{
+	width: 160px;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+}
+.signup_motives li p{
+	margin: 0;
+	display: inline-block;
+	vertical-align: middle;
+	width: -webkit-calc(100% - 165px);
+	width: -moz-calc(100% - 165px);
+	width: calc(100% - 165px);
+}
+
 
 
 

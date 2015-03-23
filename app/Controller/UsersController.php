@@ -44,8 +44,7 @@ class UsersController extends AppController {
 		$this->redirect('/');
 	}
 
-	public function register(){
-		$this->layout = "institutional";
+	public function signup(){
 
 		$isPost = $this->request->isPost();
 

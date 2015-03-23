@@ -1,19 +1,29 @@
-<div class="imagem_fundo">
-	<div class="content">
-		<h1>Cadastro</h1>
+<div class="content clearfix">
+	<div class="left_content">
+		<h1 class="default_blue_title">Faça o seu cadastro</h1>
+		<p>E  tenha acesso a tudo o que o Diário de Bordo pode lhe oferecer. <strong>É rapidinho!</strong></p>
+
+		<ul class="signup_motives">
+			<li>
+				<span class="motive_icon">
+					<?php echo $this->Html->image('icons/phone.svg', array('fullBase' => true)); ?>
+				</span>
+				<p>Você também pode acessar o Diário de Bordo do seu Smartphone! Isso mesmo, o design do webapp é todo trabalhado para que ele funcione perfeitamente em seu celular.</p>
+			</li>
+			<li>
+				<span class="motive_icon">
+					<?php echo $this->Html->image('icons/directions.svg', array('fullBase' => true)); ?>
+				</span>
+				<p>Todos os seus locais em apenas um único lugar. Aqui você reúne todo o seu roteiro de viagem e não precisa mais ficar carregando guias e manuais.</p>
+			</li>
+			<li>
+				<span class="motive_icon">
+					<?php echo $this->Html->image('icons/compass.svg', array('fullBase' => true)); ?>
+				</span>
+				<p>Não se perca mais em lugar algum, e não estamos falando de bússulas! Você pode calcular rotas a partir de sua localização atual até qualquer ponto marcado no mapa. Aí é só seguir em frente!</p>
+			</li>
+		</ul>
 	</div>
-</div>
-
-<div class="content">
-	<ol class="steps clearfix">
-		<li class="active"><abbr>1</abbr> Cadastro</li>
-		<li><abbr>2</abbr> Perfil</li>
-		<li><abbr>3</abbr> Questionário</li>
-	</ol>
-
-	<p class="page_descr">
-		Em poucos passos você estará pronto para conhecer novas pessoas com o mesmo perfil que você.
-	</p>
 
 	<?php
 
