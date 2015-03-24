@@ -7,7 +7,7 @@ class UsersController extends AppController {
 	public $components = array('Security');
 
 	public function beforeFilter(){
-		$this->Security->unlockActions = array('login', 'register', 'perfil');
+		$this->Security->unlockActions = array('login', 'signup', 'perfil');
 		$this->Security->allowedControllers = array('Pages');
 		$this->Security->allowedActions = array('display');
 		$this->Security->validatePost = false;
@@ -45,21 +45,25 @@ class UsersController extends AppController {
 	}
 
 	public function signup(){
-
+		$this->layout = "light";
 		$isPost = $this->request->isPost();
 
 		if($isPost && !empty($this->request->data)){
 			$this->request->data['User']['password'] = Security::hash($this->request->data['User']['password'], null, true);
-			$this->request->data['User']['role'] = 'nor';
 			$last = $this->User->save($this->request->data);
 			if($last){
 				$current_user = $this->User->find('first', array('conditions' => array('User.id' => $this->User->id)));
 				$this->Session->write('current_user', $current_user);
 				$this->redirect(array('action' => 'perfil'));
 			} else {
-				//'erro'
+				$this->Session->setFlash('Ocorreu um erro ao crirar a sua conta, por favor, tente novamente.');
 			}
 		}
+	}
+
+	public function perfil(){
+		print_r($this->Session->read('current_user'));
+		die();
 	}
 
 }

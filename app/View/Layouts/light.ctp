@@ -1,9 +1,9 @@
 <?php include 'header.php'; ?>
-	<header id="header">
+	<header id="header" class="white_header">
 		<div class="content">
 			<?php
 				echo $this->Html->link(
-					$this->Html->image('logo_white.svg', array('fullBase' => true, 'alt' => 'Diário de bordo', 'width' => '180')),
+					$this->Html->image('logo_black.svg', array('fullBase' => true, 'alt' => 'Diário de bordo', 'width' => '180')),
 					'/', array('full_base' => true, 'class' => 'logo_wrapper', 'escape' => false)
 				);
 			?>

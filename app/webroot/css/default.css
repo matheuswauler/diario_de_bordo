@@ -35,6 +35,9 @@ html,body{
 	padding: 20px 0;
 	width: 100%;
 }
+.white_header{
+	background: transparent !important;
+}
 
 .home_login{
 	background: url('../img/world_bg.jpg') center top no-repeat #000;
@@ -63,8 +66,10 @@ html,body{
 
 .login_box form{
 	padding: 100px 35px 20px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
-.login_box form input{
+.login_box form input,
+.login_box form select{
 	width: 100%;
 	margin: 10px 0;
 }
@@ -80,6 +85,8 @@ select{
 	padding: 15px;
 	outline: none;
 	font-size: 16px;
+	border-radius: 0;
+	height: 51px;
 	font-weight: 400;
 	font-family: 'Lato', Helvetica, Arial, sans-serif;
 	transition: border-color 0.3s ease, background 0.3s ease;
@@ -115,6 +122,10 @@ input[type=submit]:hover{
 input[type=submit]:active{
 	box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
 }
+*::-webkit-input-placeholder { color: #626262; }
+*:-moz-placeholder { color: #626262; }
+*::-moz-placeholder { color: #626262; }
+*:-ms-input-placeholder { color: #626262; }
 
 .signup_link{
 	padding: 20px 35px;
@@ -195,7 +206,7 @@ input[type=submit]:active{
 	color: #36a1fc;
 	font-weight: 300;
 	line-height: 1em;
-	margin: 1em 0;
+	margin: 0 0 1em 0;
 }
 .signup_motives{
 	list-style: none;
@@ -220,6 +231,24 @@ input[type=submit]:active{
 	width: calc(100% - 165px);
 }
 
+.right_content{
+	float: right;
+	width: 50%;
+}
+
+form fieldset{
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+form fieldset legend{
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.margin_content{
+	margin: 30px 0;
+}
 
 
 

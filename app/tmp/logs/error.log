@@ -60,3 +60,47 @@ Request URL: /diario_de_bordo/img/phone.svg
 Stack Trace:
 #0 /Applications/MAMP/htdocs/diario_de_bordo/app/webroot/index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2015-03-24 02:58:57 Error: [MissingActionException] Action UsersController::register() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'register',
+)
+Request URL: /diario_de_bordo/users/register
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /Applications/MAMP/htdocs/diario_de_bordo/app/webroot/index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-03-24 02:59:18 Error: [MissingActionException] Action UsersController::register() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'register',
+)
+Request URL: /diario_de_bordo/users/register
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /Applications/MAMP/htdocs/diario_de_bordo/app/webroot/index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-03-24 03:00:03 Error: [MissingActionException] Action UsersController::register() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'register',
+)
+Request URL: /diario_de_bordo/users/register
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /Applications/MAMP/htdocs/diario_de_bordo/app/webroot/index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-03-24 03:04:53 Error: [MissingActionException] Action UsersController::index() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'index',
+)
+Request URL: /diario_de_bordo/users
+Stack Trace:
+#0 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/diario_de_bordo/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 /Applications/MAMP/htdocs/diario_de_bordo/app/webroot/index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

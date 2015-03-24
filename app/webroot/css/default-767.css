@@ -1,0 +1,23 @@
+@media only screen and (max-width: 767px) {
+	.explanation_sec .icon_placewrapper{
+		margin: 20px 0;
+	}
+	.explanation_sec .icon_placewrapper,
+	.text_format{
+		width: 100%;
+		float: none;
+	}
+
+	.left_content,
+	.right_content{
+		float: none;
+		width: 100%;
+		padding: 0;
+	}
+	.signup_motives li p{
+		font-size: 14px;
+	}
+	.signup_wrapper{
+		margin-top: 130px;
+	}
+}

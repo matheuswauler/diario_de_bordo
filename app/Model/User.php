@@ -39,13 +39,6 @@ class User extends AppModel {
 				'message' => 'Este nome de usuário já está sendo utilizado por outra conta'
 			)
 		),
-		'sex' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
-				'required' => true,
-				'message' => 'Preencha o campo sexo.'
-			)
-		),
 		'name' => array(
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
