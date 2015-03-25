@@ -43,14 +43,21 @@ class User extends AppModel {
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
 				'required' => true,
-				'message' => 'Preencha o campo sexo.'
+				'message' => 'Preencha o campo Nome completo.'
+			)
+		),
+		'country' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'required' => true,
+				'message' => 'Preencha o campo País de origem.'
 			)
 		),
 		'password' => array(
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
 				'required' => true,
-				'message' => 'Preencha o campo sexo.'
+				'message' => 'Preencha o campo Senha.'
 			)
 		),
 	);

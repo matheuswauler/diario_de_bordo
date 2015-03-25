@@ -71,7 +71,7 @@
 
 		<div class="text_format">
 			<p>
-				Não sabe como sair do seu hotel e chegar até o Central Park? Isso é simples, aqui você adiciona qualquer ponto de localização que quiser e traça rotas para cada lugar, sem complicação. Agora você não tem mais disculpa para levar sua namorada para passear.
+				Não sabe como sair do seu hotel e chegar até o Central Park? Isso é simples, aqui você adiciona qualquer ponto de localização que quiser e traça rotas para cada lugar, super simples. Agora você não tem mais disculpa para não levar sua namorada passear...
 			</p>
 		</div>
 	</div>
