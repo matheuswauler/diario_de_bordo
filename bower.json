@@ -1,0 +1,8 @@
+{
+  "name": "diario_de_bordo",
+  "description": "Projeto realizado para matéria de Engenharia de Software III - URICER",
+    "author": "Matheus W. Auler <matheus_auler95@hotmail.com>",
+    "dependencies": {
+    "jquery": "*"
+  }
+}

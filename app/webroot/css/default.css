@@ -245,11 +245,29 @@ form fieldset legend{
 	font-size: 18px;
 	font-weight: 700;
 }
+.error-message{
+	color: #f93636;
+	font-size: 12px;
+}
 
 .margin_content{
 	margin: 30px 0;
 }
 
+.message{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px 0;
+	font-size: 14px;
+	text-align: center;
+	color: #000;
+	background: #f93636;
+	color: rgba(0,0,0,0.45);
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	transition: top 0.3s ease;
+}
 
 
 
