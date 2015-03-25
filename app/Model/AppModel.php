@@ -31,14 +31,4 @@ App::uses('Model', 'Model');
  */
 class AppModel extends Model {
 	
-	function save($data = null, $validate = true, $fieldList = array()) {
- 		$now = date('Y-m-d H:i:s');
-		if (!isset($this->data[$this->name]) || !$this->data[$this->name]['id']) {
- 			$data[$this->name]['created_at'] = $now;
-		}
-
-		$data[$this->name]['updated_at'] = $now;
-		return parent::save($data, $validate, $fieldList);
-	}
-	
 }
