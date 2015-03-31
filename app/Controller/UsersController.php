@@ -60,8 +60,15 @@ class UsersController extends AppController {
 	}
 
 	public function myaccount(){
-		print_r($this->Session->read('current_user'));
-		die();
+		$this->layout = "restrict";
+
+		if( !$this->Session->check('current_user') ){
+			$this->Session->setFlash('Você não tem permissão para acessar essa área. Por favor, faça o login.');
+			$this->redirect('/');
+		}
+
+		$current_user = $this->Session->read('current_user');
+		$this->set('current_user', $current_user);
 	}
 
 }
