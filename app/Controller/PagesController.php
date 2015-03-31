@@ -8,7 +8,7 @@ class PagesController extends AppController {
 	public function beforeFilter(){
 		$user = $this->Session->read('current_user');
 		if(!is_null($user)){
-			$this->redirect(array('controller' => 'users', 'action' => 'index'));
+			$this->redirect(array('controller' => 'Users', 'action' => 'myaccount'));
 		}
 	}
 

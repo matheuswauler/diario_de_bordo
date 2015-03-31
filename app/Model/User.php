@@ -21,8 +21,8 @@ class User extends AppModel {
 			)
 		),
 		'email' => array(
-			'validaEmailRepetido' => array(
-				'rule' => 'validaEmailRepetido',
+			'isUnique' => array(
+				'rule' => 'isUnique',
 				'required' => true,
 				'message' => 'Este e-mail já sendo utilizado por outra conta.'
 			),
@@ -33,8 +33,8 @@ class User extends AppModel {
 			)
 		),
 		'username' => array(
-			'validaUsernameRepetido' => array(
-				'rule' => 'validaUsernameRepetido',
+			'isUnique' => array(
+				'rule' => 'isUnique',
 				'required' => true,
 				'message' => 'Este nome de usuário já está sendo utilizado por outra conta'
 			)
@@ -70,65 +70,6 @@ class User extends AppModel {
 			return true;
 		}else{
 			return false;
-		}
-	}
-
-	public function validaEmailRepetido(){
-		if(array_key_exists('id', $id = $this->data['User'])){
-			$id = $this->data['User']['id'];
-		} else {
-			$id = null;
-		}
-
-		$users = $this->find('count', array(
-			'conditions' => array('User.email' => $this->data['User']['email'])
-		));
-
-		if($users > 0 ){
-			if(is_null($id)){
-				return false;
-			} else {
-				$users = $this->find('first', array(
-					'conditions' => array('User.email' => $this->data['User']['email'])
-				));
-
-				if($id == $users['User']['id']){
-					return true;
-				} else {
-					return false;
-				}
-			}
-		} else {
-			return true;
-		}
-	}
-
-	public function validaUsernameRepetido(){
-		if(array_key_exists('id', $id = $this->data['User'])){
-			$id = $this->data['User']['id'];
-		} else {
-			$id = null;
-		}
-		
-		$users = $this->find('count', array(
-			'conditions' => array('User.username' => $this->data['User']['username'])
-		));
-		if($users > 0 ){
-			if(is_null($id)){
-				return false;
-			} else {
-				$users = $this->find('first', array(
-					'conditions' => array('User.username' => $this->data['User']['username'])
-				));
-
-				if($id == $users['User']['id']){
-					return true;
-				} else {
-					return false;
-				}
-			}
-		} else {
-			return true;
 		}
 	}
 

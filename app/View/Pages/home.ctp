@@ -5,7 +5,7 @@
 			<?php
 				echo $this->Form->create(array('url' => $this->Html->url(array('controller' => 'Users','action' => 'login'), true)));
 
-				echo $this->Form->input('User.username', array('label' => false, 'placeholder' => 'E-mail'));
+				echo $this->Form->input('User.username', array('label' => false, 'placeholder' => 'Nome de usuário'));
 				echo $this->Form->input('User.senha', array('label' => false, 'placeholder' => 'Senha', 'type' => 'password'));
 
 				echo $this->Form->end('OK');

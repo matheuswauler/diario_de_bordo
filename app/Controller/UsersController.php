@@ -7,7 +7,7 @@ class UsersController extends AppController {
 	public $components = array('Security');
 
 	public function beforeFilter(){
-		$this->Security->unlockActions = array('login', 'signup', 'perfil');
+		$this->Security->unlockActions = array('login', 'signup', 'myaccount');
 		$this->Security->allowedControllers = array('Pages');
 		$this->Security->allowedActions = array('display');
 		$this->Security->validatePost = false;
@@ -25,11 +25,8 @@ class UsersController extends AppController {
 			));
 			if(!empty($user)){
 				$this->Session->write('current_user', $user);
-				if($user['User']['role'] == "adm"){
-					$this->redirect(array('controller' => 'Personalities', 'action' => 'index'));
-				} else {
-					$this->redirect('/');
-				}
+				
+				$this->redirect(array('controller' => 'Users', 'action' => 'myaccount'));
 			} else {
 				$this->Session->setFlash('Usuário inválido!');
 				$this->redirect('/');
@@ -39,6 +36,7 @@ class UsersController extends AppController {
 			$this->redirect('/');
 		}
 	}
+
 	public function logout(){
 		$this->Session->delete('current_user');
 		$this->redirect('/');
@@ -54,14 +52,14 @@ class UsersController extends AppController {
 			if($last){
 				$current_user = $this->User->find('first', array('conditions' => array('User.id' => $this->User->id)));
 				$this->Session->write('current_user', $current_user);
-				$this->redirect(array('action' => 'perfil'));
+				$this->redirect(array('action' => 'myaccount'));
 			} else {
 				$this->Session->setFlash('Ocorreu um erro ao crirar a sua conta, por favor, tente novamente.');
 			}
 		}
 	}
 
-	public function perfil(){
+	public function myaccount(){
 		print_r($this->Session->read('current_user'));
 		die();
 	}
