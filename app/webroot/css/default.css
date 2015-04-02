@@ -206,7 +206,10 @@ input[type=submit]:active{
 	color: #36a1fc;
 	font-weight: 300;
 	line-height: 1em;
-	margin: 0 0 1em 0;
+	margin: 0.8em 0;
+}
+.left_content .default_blue_title{
+	margin-top: 0;
 }
 .signup_motives{
 	list-style: none;
@@ -271,9 +274,8 @@ form fieldset legend{
 
 #restrict_header{
 	background: #f2f2f2;
-	padding: 5px 0;
+	padding: 7px 0;
 	font-size: 14px;
-	border-bottom: 1px solid #e5e5e5;
 }
 #restrict_header img{
 	margin-right: 10px;
@@ -286,6 +288,13 @@ form fieldset legend{
 	display: block;
 	padding: 3px 0 3px 25px;
 	text-decoration: none;
+}
+.greetings{
+	vertical-align: middle;
+}
+
+.minha_conta_links{
+	margin: 100px 0;
 }
 
 

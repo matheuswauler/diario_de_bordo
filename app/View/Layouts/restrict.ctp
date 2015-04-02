@@ -7,7 +7,7 @@
 					array('controller' => 'users', 'action' => 'myaccount'), array('full_base' => true, 'class' => 'logo_wrapper', 'escape' => false)
 				);
 			?>
-			Olá, <?php echo $current_user['User']['name']; ?>!
+			<span class="greetings">Olá, <?php echo $current_user['User']['name']; ?>!</span>
 
 			<?php echo $this->Html->link('Sair', array('controller' => 'users', 'action' => 'logout'), array('full_base' => true, 'class' => 'logout_link')); ?>
 		</div>
