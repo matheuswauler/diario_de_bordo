@@ -1,5 +1,6 @@
 html,body{
 	min-height: 100%;
+	height: 100%;
 	background: #fff;
 	font-size: 100%;
 	font-family: 'Lato', Helvetica, Arial, sans-serif;
@@ -294,8 +295,96 @@ form fieldset legend{
 }
 
 .minha_conta_links{
-	margin: 100px 0;
+	margin: 50px 0 100px 0;
 }
+.minha_conta_links a{
+	width: 31%;
+	float: left;
+	display: block;
+	height: 300px;
+	overflow: hidden;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	transition: background-size 0.4s ease;
+}
+.minha_conta_links a.meu_mapa{ background: url('../img/icons/meu_mapa.svg') center 10px no-repeat #35a1fc; background-size: 200px; }
+.minha_conta_links a.navegar{ background: url('../img/icons/gps.svg') center 10px no-repeat #77d25b; background-size: 200px; margin: 0 3.5%; }
+.minha_conta_links a.meu_cadastro{ background: url('../img/icons/user_yellow.svg') center 10px no-repeat #e8d00a; background-size: 200px; }
+
+.minha_conta_links a .menu_description{
+	margin-top: 225px;
+	background: rgba(0,0,0,0.2);
+	padding: 1px 20px;
+	width: 100%;
+	height: 100%;
+	font-weight: 300;
+	font-size: 18px;
+	box-sizing: border-box;
+	transition: margin-top 0.5s ease;
+}
+.minha_conta_links a .menu_description h2{
+	font-size: 30px;
+	font-weight: 100;
+	margin: 0;
+	padding: 25px 0;
+	text-transform: uppercase;
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+
+.minha_conta_links a:hover{
+	background-size: 0px;
+}
+.minha_conta_links a:hover .menu_description{
+	margin-top: 0;
+}
+
+#mapa{
+	width: 100%;
+	height: 100%;
+	height: -webkit-calc(100% - 70px);
+	height: -moz-calc(100% - 70px);
+	height: calc(100% - 70px);
+	position: relative;
+	z-index: 1;
+}
+
+.navigation_search_content{
+	width: 100%;
+	height: 70px;
+	background: #fff;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+	position: relative;
+	z-index: 2;
+}
+.navigation_search_content input[type=search]{
+	width: 90%;
+	display: block;
+	float: left;
+	border: 0;
+	padding: 20px;
+	box-sizing: border-box;
+	background-size: #fff;
+	color: #222222;
+	font-size: 25px;
+	outline: none;
+	font-weight: 300;
+	font-family: 'Lato';
+}
+.navigation_search_content input[type=submit]{
+	width: 10%;
+	background: url('../img/icons/magnifyer.svg') center no-repeat #35a1fc;
+	background-size: auto 50%;
+	display: block;
+	float: left;
+	height: 70px;
+	box-sizing: border-box;
+}
+
+
+
+
+
 
 
 

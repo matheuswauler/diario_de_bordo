@@ -1,7 +1,17 @@
 <?php
 
 class User extends AppModel {
+	
 	public $components = array('Security');
+
+	public $hasMany = array(
+		'Trip' => array(
+			'className' => 'Trip'
+		),
+		'Location' => array(
+			'className' => 'Location'
+		)
+	);
 
 	var $validate = array(
 		'password_confirm' => array(

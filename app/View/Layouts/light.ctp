@@ -16,4 +16,10 @@
 		<?php echo $this->fetch('content'); ?>
 	</div>
 
+	<footer id="footer">
+		<div class="content">
+			Matheus William Auler - 2015
+		</div>
+	</footer>
+
 <?php include 'footer.php'; ?>

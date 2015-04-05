@@ -1,11 +1,8 @@
-	<footer id="footer">
-		<div class="content">
-			Matheus William Auler - 2015
-		</div>
-	</footer>
+	
 
 	<?php
 		echo $this->Html->script('scripts');
+		echo $this->Html->script('http://maps.googleapis.com/maps/api/js?sensor=true');
 		echo $this->Html->script('default');
 	?>
 
