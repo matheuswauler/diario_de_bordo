@@ -17,4 +17,4 @@
 		echo $this->fetch('script');
 	?>
 </head>
-<body>
+<body ng-app="diario_de_bordo">

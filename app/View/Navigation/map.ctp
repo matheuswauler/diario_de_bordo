@@ -1,1 +1,1 @@
-<div id="mapa"></div>
+<div ng-controller="CurrentLocationController" id="mapa"></div>
