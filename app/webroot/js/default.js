@@ -56,12 +56,34 @@ modulo.controller('CreateTripController', ['$scope', '$http', function($scope, $
 		$http.post(SITE + '/Trips/create', $scope.formData)
 		.success(function(data) {
 			console.log(data);
-			if (!data.save) {
+			if (data.save) {
 				$scope.message = data.message;
+				$scope.message_type = "green_message";
 			} else {
 				$scope.message = data.message;
+				$scope.message_type = "red_message";
 				// Deu ruim
 			}
+		});
+	};
+
+	$scope.addMapClickEvent = function(){
+		google.maps.event.addListener(map, 'click', function(event) {
+			var marker = new google.maps.Marker({
+				position: event.latLng,
+				map: map
+			});
+			$http.post(SITE + '/Locations/create',{
+				latitude: event.latLng.lat(),
+				longitude: event.latLng.lng()
+			}).success(function(data, status, headers, config) {
+				if(data.save){
+					alert("Novo local salvo com sucesso");
+				} else {
+					alert("Erro ao salvar o novo local");
+				}
+				google.maps.event.clearListeners(map, 'click');
+			});
 		});
 	};
 }]);

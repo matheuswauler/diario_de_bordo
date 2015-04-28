@@ -559,8 +559,8 @@ form fieldset legend{
 	color: #fff;
 	background: #f22c2c;
 }
-.default_error_message .green_message{ background: #79c441; }
-.default_error_message .red_message{  }
+.default_error_message.green_message{ background: #79c441; }
+.default_error_message.red_message{ background: #f22c2c; }
 
 
 

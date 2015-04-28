@@ -3,7 +3,7 @@
 <div ng-controller="CreateTripController">
 	<nav class="map_options_wrapper">
 		<div class="plus_options">
-			<a id="new_location" class="plus_option">
+			<a id="new_location" ng-click="addMapClickEvent()" class="plus_option">
 				Novo local
 				<?php echo $this->Html->image('icons/marker_icon.svg', array('fullBase' => true, 'alt' => 'Novo local')); ?>
 			</a>
@@ -34,7 +34,7 @@
 				<input type="text" name="date" placeholder="Data" mask="99/99/9999" ng-model="formData.date">
 			</div>
 
-			<div class="default_error_message" ng-show="message">{{ message }}</div>
+			<div class="default_error_message {{ message_type }}" ng-show="message">{{ message }}</div>
 
 			<div class="form_buttons_wrapper clearfix">
 				<button class="cancel_form_submition" ng-click="showForm = !showForm" >Cancelar</button>
