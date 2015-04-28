@@ -1,9 +1,9 @@
 <?php
 
-class LocationsController extends AppController {
+class TripsController extends AppController {
 
-	public $name = 'Locations';
-	public $uses = array('Location');
+	public $name = 'Trips';
+	public $uses = array('Trip');
 	public $components = array('Security', 'RequestHandler');
 
 	public function beforeFilter(){
@@ -24,13 +24,22 @@ class LocationsController extends AppController {
 		$params = json_decode(file_get_contents('php://input'));
 
 		if(!empty($params)){
-			$newObj['Location']['user_id'] = $this->Session->read('current_user')['User']['id'];
-			$newObj['Location']['latitude'] = $params->latitude;
-			$newObj['Location']['longitude'] = $params->longitude;
-			if( $this->Location->save($newObj) ){
-				$response = array('save' => true);
+			$date = str_replace('/', '-', $params->date);
+			$date = date('Y-m-d', strtotime($date));
+			
+			$newObj['Trip']['user_id'] = $this->Session->read('current_user')['User']['id'];
+			$newObj['Trip']['name'] = $params->name;
+			$newObj['Trip']['date'] = $date;
+			if( $this->Trip->save($newObj) ){
+				$response = array(
+					'save' => true,
+					'message' => 'Viagem cadastrada com sucesso.'
+				);
 			} else {
-				$response = array('save' => false);
+				$response = array(
+					'save' => false,
+					'message' => 'Erro ao gravar viagem.'
+				);
 			}
 			echo json_encode($response);
 		}
@@ -42,12 +51,12 @@ class LocationsController extends AppController {
 
 		if(!empty($params)){
 			if(isset($params->id)){
-				$response = $this->Location->find('first', array(
-					'conditions' => array('Location.id' => 1)
+				$response = $this->Trip->find('first', array(
+					'conditions' => array('Trip.id' => 1)
 				));
 			} else if(isset($params->latitude) && isset($params->longitude)){
-				$response = $this->Location->find('all', array(
-					'conditions' => array('Location.latitude LIKE ' => '%' . $params->latitude . '%', 'Location.longitude LIKE ' => '%' . $params->longitude . '%')
+				$response = $this->Trip->find('all', array(
+					'conditions' => array('Trip.latitude LIKE ' => '%' . $params->latitude . '%', 'Trip.longitude LIKE ' => '%' . $params->longitude . '%')
 				));
 			}
 			echo json_encode($response);

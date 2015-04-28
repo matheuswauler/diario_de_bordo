@@ -342,9 +342,9 @@ form fieldset legend{
 #mapa{
 	width: 100%;
 	height: 100%;
-	height: -webkit-calc(100% - 70px);
-	height: -moz-calc(100% - 70px);
-	height: calc(100% - 70px);
+	height: -webkit-calc(100% - 40px);
+	height: -moz-calc(100% - 40px);
+	height: calc(100% - 40px);
 	position: relative;
 	z-index: 1;
 }
@@ -380,6 +380,188 @@ form fieldset legend{
 	height: 70px;
 	box-sizing: border-box;
 }
+
+.map_options_wrapper{
+	position: absolute;
+	z-index: 10;
+	bottom: 20px;
+	right: 20px;
+	width: 60px;
+	height: 60px;
+}
+.map_options_wrapper .plus_map{
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	background: #35a1fc;
+	color: #fff;
+	font-size: 40px;
+	line-height: 57px;
+	text-align: center;
+	display: block;
+	font-weight: 300;
+	/*box-shadow: 0 5px 5px rgba(0,0,0,0.5);*/
+	cursor: pointer;
+	transition: all 0.5s ease;
+}
+.map_options_wrapper .plus_map:hover{
+	background: #1684e1;
+}
+.show_opts .plus_map{
+	-webkit-transform: rotate(225deg);
+	transform: rotate(225deg);
+}
+.plus_options{
+	bottom: 60px;
+	width: 150px;
+	right: 10px;
+	text-align: right;
+	font-size: 14px;
+	z-index: -1;
+	position: absolute;
+	/*display: none;*/
+}
+.plus_options a{
+	display: block;
+	margin: 15px 0;
+	cursor: pointer;
+	color: #fff;
+	border-radius: 30px;
+	text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000;
+	
+	-webkit-transform: translate3d(0,500px,0);
+	transform: translate3d(0,500px,0);
+	-webkit-transition: -webkit-transform 0.9s 0.4s;
+	transition: transform 0.9s 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+.plus_options a:nth-child(2){
+	-webkit-transform: translate3d(0,1000px,0);
+	transform: translate3d(0,1000px,0);
+}
+.plus_options a img{
+	vertical-align: middle;
+	margin-left: 10px;
+}
+.show_opts .plus_options a{
+	-webkit-transition-duration: 0.9s;
+	transition-duration: 0.9s;
+
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	-webkit-transition: background 0.4s ease, -webkit-transform 0.8s;
+	transition: background 0.4s ease, transform 0.8s;
+	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+.show_opts .plus_options a:first-child:hover{
+	text-shadow: none;
+	background: #e8d10b;
+}
+.show_opts .plus_options a:nth-child(2):hover{
+	text-shadow: none;
+	background: #77d25b;
+}
+
+.voltar_painel{
+	position: absolute;
+	display: block;
+	bottom: 20px;
+	left: 20px;
+	text-decoration: none;
+	z-index: 10;
+	color: #fff;
+	font-size: 14px;
+	padding-right: 20px;
+	border-radius: 30px;
+	transition: background 0.4s ease;
+	text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000;
+}
+.voltar_painel:hover{
+	text-shadow: none;
+	background: #36a1fc;
+}
+.voltar_painel img{
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+
+.form_viagem{
+	position: absolute;
+	z-index: 15;
+	background: #fff;
+	width: 90%;
+	max-width: 500px;
+	top: 30%;
+	left: 50%;
+	margin-left: -250px;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+.form_viagem h2{
+	color: #36a1fc;
+	font-weight: 300;
+	font-size: 24px;
+	text-align: center;
+	margin: 20px 0 0;
+}
+.form_viagem .inputs_wrapper{
+	/*margin: 20px;*/
+}
+.form_viagem input[type=text]{
+	display: block;
+	padding: 20px 15px;
+	height: auto;
+	font-size: 18px;
+	box-sizing: border-box;
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #eee;
+}
+.form_viagem .form_buttons_wrapper{}
+.form_viagem .form_buttons_wrapper button{
+	border: 0;
+	box-sizing: border-box;
+	display: block;
+	float: left;
+	width: 50%;
+	text-align: center;
+	padding: 20px 0;
+	font-size: 18px;
+	font-family: 'Lato';
+	cursor: pointer;
+}
+.form_viagem .form_buttons_wrapper button.cancel_form_submition{
+	background: #fff;
+	border-right: 1px solid #eee;
+	color: #aaa;
+}
+.form_viagem .form_buttons_wrapper button.save_form_submition{
+	background: #36a1fc;
+	color: #fff;
+}
+
+#map_overlay{
+	position: absolute;
+	z-index: 11;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+}
+
+.default_error_message{
+	display: block;
+	padding: 15px;
+	font-size: 12px;
+	color: #fff;
+	background: #f22c2c;
+}
+.default_error_message .green_message{ background: #79c441; }
+.default_error_message .red_message{  }
+
 
 
 

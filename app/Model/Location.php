@@ -3,8 +3,8 @@
 class Location extends AppModel {
 
 	public $hasMany = array(
-		'Location' => array(
-			'className' => 'Location'
+		'Note' => array(
+			'className' => 'Note'
 		)
 	);
 	public $belongsTo = array(

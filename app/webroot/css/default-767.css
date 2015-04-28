@@ -28,4 +28,9 @@
 		width: 100%;
 		max-width: 300px;
 	}
+
+	.form_viagem{
+		left: 5%;
+		margin: 0;
+	}
 }
