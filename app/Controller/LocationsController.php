@@ -27,6 +27,9 @@ class LocationsController extends AppController {
 			$newObj['Location']['user_id'] = $this->Session->read('current_user')['User']['id'];
 			$newObj['Location']['latitude'] = $params->latitude;
 			$newObj['Location']['longitude'] = $params->longitude;
+			$newObj['Location']['city'] = $params->city;
+			$newObj['Location']['state'] = $params->state;
+			$newObj['Location']['country'] = $params->country;
 			if( $this->Location->save($newObj) ){
 				$response = array('save' => true);
 			} else {

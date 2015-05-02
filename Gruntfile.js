@@ -3,7 +3,8 @@ module.exports = function(grunt) {
   var jsFileList = [
     'app/webroot/js/components/jquery/dist/jquery.min.js',
     'app/webroot/js/components/angular/angular.min.js',
-    'app/webroot/js/components/angular-mask/dist/ngMask.min.js'
+    'app/webroot/js/components/angular-mask/dist/ngMask.min.js',
+    'app/webroot/js/components/remover-acentos/remover-acentos.js'
   ];
 
   grunt.initConfig({

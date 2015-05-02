@@ -63,4 +63,22 @@ class TripsController extends AppController {
 		}
 	}
 
+	public function list(){
+		$this->autoRender = false;
+		$params = json_decode(file_get_contents('php://input'));
+
+		if(!empty($params)){
+			if(isset($params->id)){
+				$response = $this->Trip->find('first', array(
+					'conditions' => array('Trip.id' => 1)
+				));
+			} else if(isset($params->latitude) && isset($params->longitude)){
+				$response = $this->Trip->find('all', array(
+					'conditions' => array('Trip.latitude LIKE ' => '%' . $params->latitude . '%', 'Trip.longitude LIKE ' => '%' . $params->longitude . '%')
+				));
+			}
+			echo json_encode($response);
+		}
+	}
+
 }
