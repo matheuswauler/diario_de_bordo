@@ -77,7 +77,7 @@ class DATABASE_CONFIG {
 		'password' => 'root',
 		'database' => 'diario_de_bordo',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8',
 	);
 
 	public $test = array(
@@ -89,6 +89,6 @@ class DATABASE_CONFIG {
 		'password' => 'root',
 		'database' => 'diario_de_bordo',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8',
 	);
 }
