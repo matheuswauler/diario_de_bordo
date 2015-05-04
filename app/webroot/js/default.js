@@ -55,14 +55,32 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', function($sco
 }]);
 
 modulo.controller('SearchController', ['$scope', '$http', function($scope, $http){
-	$scope.executeQuery = function(){
+	$scope.formData = {};
 
+	$scope.executeQuery = function(){
+		if($scope.formData.search_params == ''){
+			$scope.showResults = false;
+			return;
+		}
+		
+		$http.post(SITE + '/Trips/list_all', $scope.formData)
+		.success(function(data) {
+			$scope.trips = data;
+			$scope.showResults = true;
+		});
+
+		$http.post(SITE + '/Locations/list_all', $scope.formData)
+		.success(function(data) {
+			$scope.locations = data;
+			$scope.showResults = true;
+		});
 	};
 }]);
 
 // Grava as Viagens
-modulo.controller('CreateTripController', ['$scope', '$http', function($scope, $http){
+modulo.controller('CreateTripController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
 	$scope.formData = {};
+	$scope.showForm;
 
 	$scope.processForm = function() {
 		$http.post(SITE + '/Trips/create', $scope.formData)
@@ -70,6 +88,9 @@ modulo.controller('CreateTripController', ['$scope', '$http', function($scope, $
 			if (data.save) {
 				$scope.message = data.message;
 				$scope.message_type = "green_message";
+				$timeout(function(){
+					$scope.showForm = false;
+				}, 2000);
 			} else {
 				$scope.message = data.message;
 				$scope.message_type = "red_message";

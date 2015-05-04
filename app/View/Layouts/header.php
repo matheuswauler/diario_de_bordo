@@ -17,4 +17,4 @@
 		echo $this->fetch('script');
 	?>
 </head>
-<body ng-app="diario_de_bordo">
+<body ng-app="diario_de_bordo" class="<?php if(in_array($this->params['controller'], array('Navigation'))) echo 'crop'; ?>">

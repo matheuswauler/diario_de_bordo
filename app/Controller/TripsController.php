@@ -24,11 +24,11 @@ class TripsController extends AppController {
 		$params = json_decode(file_get_contents('php://input'));
 
 		if(!empty($params)){
-			$date = str_replace('/', '-', $params->date);
+			$date = isset($params->date) ? str_replace('/', '-', $params->date) : NULL;
 			$date = date('Y-m-d', strtotime($date));
 			
 			$newObj['Trip']['user_id'] = $this->Session->read('current_user')['User']['id'];
-			$newObj['Trip']['name'] = $params->name;
+			$newObj['Trip']['name'] = isset($params->date) ? $params->name : NULL;
 			$newObj['Trip']['date'] = $date;
 			if( $this->Trip->save($newObj) ){
 				$response = array(
@@ -36,13 +36,22 @@ class TripsController extends AppController {
 					'message' => 'Viagem cadastrada com sucesso.'
 				);
 			} else {
+				$errors = "Erro: ";
+				foreach ($this->Trip->invalidFields() as $key => $value) {
+					$errors .= $value[0] . '. ';
+				}
 				$response = array(
 					'save' => false,
-					'message' => 'Erro ao gravar viagem.'
+					'message' => $errors
 				);
 			}
-			echo json_encode($response);
+		} else {
+			$response = array(
+				'save' => false,
+				'message' => 'Nenhum dado recebido.'
+			);
 		}
+		echo json_encode($response);
 	}
 
 	public function show(){
@@ -52,29 +61,24 @@ class TripsController extends AppController {
 		if(!empty($params)){
 			if(isset($params->id)){
 				$response = $this->Trip->find('first', array(
-					'conditions' => array('Trip.id' => 1)
-				));
-			} else if(isset($params->latitude) && isset($params->longitude)){
-				$response = $this->Trip->find('all', array(
-					'conditions' => array('Trip.latitude LIKE ' => '%' . $params->latitude . '%', 'Trip.longitude LIKE ' => '%' . $params->longitude . '%')
+					'conditions' => array('Trip.id' => 1, 'Trip.user_id' => $this->Session->read('current_user')['User']['id'])
 				));
 			}
 			echo json_encode($response);
 		}
 	}
 
-	public function list(){
+	public function list_all(){
 		$this->autoRender = false;
 		$params = json_decode(file_get_contents('php://input'));
+		$response = NULL;
 
 		if(!empty($params)){
-			if(isset($params->id)){
-				$response = $this->Trip->find('first', array(
-					'conditions' => array('Trip.id' => 1)
-				));
-			} else if(isset($params->latitude) && isset($params->longitude)){
+			if(isset($params->search_params)){
+				$consulta = '%' . str_replace(' ', '%', $params->search_params) . '%';
 				$response = $this->Trip->find('all', array(
-					'conditions' => array('Trip.latitude LIKE ' => '%' . $params->latitude . '%', 'Trip.longitude LIKE ' => '%' . $params->longitude . '%')
+					'conditions' => array('Trip.name LIKE ' => $consulta, 'Trip.user_id' => $this->Session->read('current_user')['User']['id']),
+					'order' => array('Trip.name' => 'ASC')
 				));
 			}
 			echo json_encode($response);

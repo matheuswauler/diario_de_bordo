@@ -46,11 +46,37 @@ class LocationsController extends AppController {
 		if(!empty($params)){
 			if(isset($params->id)){
 				$response = $this->Location->find('first', array(
-					'conditions' => array('Location.id' => 1)
+					'conditions' => array('Location.id' => 1, 'Trip.user_id' => $this->Session->read('current_user')['User']['id'])
 				));
 			} else if(isset($params->latitude) && isset($params->longitude)){
 				$response = $this->Location->find('all', array(
-					'conditions' => array('Location.latitude LIKE ' => '%' . $params->latitude . '%', 'Location.longitude LIKE ' => '%' . $params->longitude . '%')
+					'conditions' => array(
+						'Location.latitude LIKE ' => '%' . $params->latitude . '%',
+						'Location.longitude LIKE ' => '%' . $params->longitude . '%',
+						'Location.user_id' => $this->Session->read('current_user')['User']['id'])
+				));
+			}
+			echo json_encode($response);
+		}
+	}
+
+	public function list_all(){
+		$this->autoRender = false;
+		$params = json_decode(file_get_contents('php://input'));
+		$response = NULL;
+
+		if(!empty($params)){
+			if(isset($params->search_params)){
+				$consulta = '%' . str_replace(' ', '%', $params->search_params) . '%';
+				$response = $this->Location->find('all', array(
+					'conditions' => array(
+						'Location.user_id' => $this->Session->read('current_user')['User']['id'],
+						'OR' => array(
+							'Location.city LIKE' => $consulta,
+							'Location.state LIKE' => $consulta,
+							'Location.country LIKE' => $consulta,
+						)
+					)
 				));
 			}
 			echo json_encode($response);

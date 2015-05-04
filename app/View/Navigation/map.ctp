@@ -37,7 +37,7 @@
 			<div class="default_error_message {{ message_type }}" ng-show="message">{{ message }}</div>
 
 			<div class="form_buttons_wrapper clearfix">
-				<button class="cancel_form_submition" ng-click="showForm = !showForm" >Cancelar</button>
+				<a class="cancel_form_submition" ng-click="showForm = !showForm" >Cancelar</a>
 				<button type="submit" class="save_form_submition">Gravar</button>
 			</div>
 		</form>

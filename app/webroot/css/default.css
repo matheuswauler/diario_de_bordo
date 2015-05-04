@@ -9,6 +9,9 @@ html,body{
 	margin: 0;
 	line-height: 1.5em;
 }
+.crop{
+	overflow: hidden;
+}
 
 .content{
 	width: 100%;
@@ -364,7 +367,7 @@ form fieldset legend{
 	border: 0;
 	padding: 20px;
 	box-sizing: border-box;
-	background-size: #fff;
+	background: #fff;
 	color: #222222;
 	font-size: 25px;
 	outline: none;
@@ -379,6 +382,46 @@ form fieldset legend{
 	float: left;
 	height: 70px;
 	box-sizing: border-box;
+}
+.floater_results{
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	padding: 0;
+	max-height: 262px;
+	overflow: auto;
+	top: 70px;
+	background: rgba(255,255,255,0.9);
+	box-shadow: 0 10px 10px rgba(0,0,0,0.3);
+}
+.floater_results nav.search_result_set{
+	border-top: 1px solid #bbb;
+}
+.floater_results nav.search_result_set a{
+	border-top: 1px solid #dedede;
+	display: block;
+	color: #222222;
+	padding: 15px 15px 15px 70px;
+	text-decoration: none;
+	line-height: 1.1em;
+	cursor: pointer;
+}
+.floater_results nav.search_result_set a:first-child{ border-color: white; }
+.location_set a{
+	background: url('../img/icons/map_pointer.svg') 20px center no-repeat;
+}
+.trip_set a{
+	background: url('../img/icons/passport.svg') 20px center no-repeat;
+}
+
+.floater_results nav.search_result_set a strong{
+	font-size: 16px;
+	display: block;
+}
+.floater_results nav.search_result_set a span{
+	font-size: 14px;
+	color: #939393;
+	display: block;
 }
 
 .map_options_wrapper{
@@ -520,6 +563,7 @@ form fieldset legend{
 	border-bottom: 1px solid #eee;
 }
 .form_viagem .form_buttons_wrapper{}
+.form_viagem .form_buttons_wrapper a,
 .form_viagem .form_buttons_wrapper button{
 	border: 0;
 	box-sizing: border-box;
@@ -532,9 +576,10 @@ form fieldset legend{
 	font-family: 'Lato';
 	cursor: pointer;
 }
-.form_viagem .form_buttons_wrapper button.cancel_form_submition{
+.form_viagem .form_buttons_wrapper a.cancel_form_submition{
 	background: #fff;
 	border-right: 1px solid #eee;
+	padding: 19px 0;
 	color: #aaa;
 }
 .form_viagem .form_buttons_wrapper button.save_form_submition{
@@ -561,6 +606,69 @@ form fieldset legend{
 }
 .default_error_message.green_message{ background: #79c441; }
 .default_error_message.red_message{ background: #f22c2c; }
+
+/*Perfil*/
+.update_form{
+	width: 100%;
+}
+.update_form fieldset{
+	margin: 30px 0;
+}
+.update_form fieldset div{
+	width: 49%;
+	margin: 10px 0;
+	float: left;
+}
+.update_form fieldset div:nth-child(odd){
+	margin-left: 2%;
+}
+.update_form fieldset div input{
+	width: 100%;
+}
+.update_form .submit{
+	text-align: right;
+}
+.update_form .submit input{
+	width: 230px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.perfil_title{
+	margin: 30px 0;
+	font-size: 30px;
+	font-weight: 300;
+}
+.excluir_conta{
+	display: inline-block;
+	padding: 15px;
+	color: #fff;
+	background: #fc2020;
+	font-size: 16px;
+	width: 230px;
+	box-sizing: border-box;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: all 0.3s ease;
+}
+.excluir_conta:hover,
+.excluir_conta:focus{
+	background: #db0606;
+}
+.excluir_conta:active{
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3) inset;
+}
+
+input[readonly=readonly]{
+	background: #f5f5f5;
+}
+.excluir_wrapper{
+	text-align: right;
+	margin: 30px 0;
+}
+
+
 
 
 

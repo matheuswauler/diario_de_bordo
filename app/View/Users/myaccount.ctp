@@ -25,7 +25,7 @@
 			</div>
 		</a>
 
-		<a href="/" class="meu_cadastro">
+		<a href="<?php echo $this->Html->url(array("controller" => "Users", "action" => "perfil")); ?>" class="meu_cadastro">
 			<div class="menu_description">
 				<h2>Meu cadastro</h2>
 				<p>

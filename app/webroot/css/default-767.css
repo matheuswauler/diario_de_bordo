@@ -33,4 +33,13 @@
 		left: 5%;
 		margin: 0;
 	}
+
+	.update_form fieldset div{
+		width: 100%;
+		margin: 10px 0 !important;
+		float: none;
+	}
+	.excluir_conta, .update_form .submit input{
+		width: 100%;
+	}
 }
