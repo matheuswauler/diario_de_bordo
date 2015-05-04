@@ -9,8 +9,14 @@
 	</form>
 
 	<div class="floater_results" ng-show="showResults">
+		<nav class="search_result_set map_set">
+			<a ng-click="findOnMap()">
+				<strong>Procurar no mapa</strong>
+				<span>Centrar o mapa segundo endereço: {{formData.search_params}}</span>
+			</a>
+		</nav>
 		<nav class="search_result_set location_set">
-			<a ng-repeat="location in locations">
+			<a ng-click="locationClick(location.Location.id)" ng-repeat="location in locations">
 				<strong>{{location.Location.city}}</strong>
 				<span>{{location.Location.state}} - {{location.Location.country}}</span>
 			</a>

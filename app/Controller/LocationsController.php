@@ -46,7 +46,7 @@ class LocationsController extends AppController {
 		if(!empty($params)){
 			if(isset($params->id)){
 				$response = $this->Location->find('first', array(
-					'conditions' => array('Location.id' => 1, 'Trip.user_id' => $this->Session->read('current_user')['User']['id'])
+					'conditions' => array('Location.id' => $params->id, 'Location.user_id' => $this->Session->read('current_user')['User']['id'])
 				));
 			} else if(isset($params->latitude) && isset($params->longitude)){
 				$response = $this->Location->find('all', array(

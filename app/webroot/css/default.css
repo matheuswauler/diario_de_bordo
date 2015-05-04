@@ -407,6 +407,9 @@ form fieldset legend{
 	cursor: pointer;
 }
 .floater_results nav.search_result_set a:first-child{ border-color: white; }
+.map_set a{
+	background: url('../img/icons/mapa.svg') 20px center no-repeat;
+}
 .location_set a{
 	background: url('../img/icons/map_pointer.svg') 20px center no-repeat;
 }

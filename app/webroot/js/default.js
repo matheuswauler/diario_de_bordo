@@ -1,6 +1,7 @@
 var map;
 var initialLocation;
 var browserSupportFlag;
+var geocoder;
 var SITE = '/diario_de_bordo';
 
 var modulo = angular.module('diario_de_bordo', ['ngMask']);
@@ -75,6 +76,37 @@ modulo.controller('SearchController', ['$scope', '$http', function($scope, $http
 			$scope.showResults = true;
 		});
 	};
+
+	$scope.findOnMap = function(){
+		geocoder.geocode({
+			'address': $scope.formData.search_params
+		}, function (results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				// Centraliza mapa segundo localização
+				map.setCenter(results[0].geometry.location);
+			} else {
+				alert("Não foi possível localizar este endereço");
+			}
+		});
+	};
+
+	$scope.locationClick = function(id){
+		$http.post(SITE + '/Locations/show', {
+			id: id
+		})
+		.success(function(data) {
+			if(! $.isEmptyObject(data) ){
+				var coord = new google.maps.LatLng(data.Location.latitude, data.Location.longitude);
+				var marker = new google.maps.Marker({
+					position: coord,
+					map: map
+				});
+				map.setCenter(coord);
+			} else {
+				alert('Nenhum ponto encontrado');
+			}
+		});
+	};
 }]);
 
 // Grava as Viagens
@@ -147,6 +179,8 @@ function plus_control(){
 }
 
 function initialize_map(){
+	geocoder = new google.maps.Geocoder();
+
 	var mapOptions = {
 		zoom: 16,
 		center: new google.maps.LatLng(0, 0),
