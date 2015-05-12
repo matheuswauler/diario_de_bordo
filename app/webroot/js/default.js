@@ -3,10 +3,14 @@ var initialLocation;
 var browserSupportFlag;
 var geocoder;
 var SITE = '/diario_de_bordo';
+var markers = [];
 
 var modulo = angular.module('diario_de_bordo', ['ngMask']);
 
-modulo.controller('CurrentLocationController', ['$scope', '$http', function($scope, $http){
+modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
+	$scope.noteData = {};
+	$scope.showNotes = false;
+
 	if(navigator.geolocation){
 		browserSupportFlag = true; // Flag que valida o suporte a geolocalização no navegador
 		navigator.geolocation.getCurrentPosition(function(position){
@@ -53,6 +57,129 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', function($sco
 			}
 		});
 	}
+
+	$http.post(SITE + '/Locations/list_all', {})
+	.success(function(data) {
+		var log = [];
+		angular.forEach(data, function(value, key) {
+
+			initialLocation = new google.maps.LatLng(value.Location.latitude, value.Location.longitude);
+			var marker = new google.maps.Marker({
+				position: initialLocation,
+				map: map
+			});
+			markers.push(marker);
+			var info_posicao_atual = new google.maps.InfoWindow({
+				content: value.Location.city + '<br />' + value.Location.state
+			});
+			google.maps.event.addListener(marker, 'click', function() {
+				info_posicao_atual.open(map, marker);
+				map.setCenter(marker.getPosition());
+				$scope.showLocation(value.Location.id, markers.length - 1);
+			});
+		}, log);
+	});
+
+	$scope.showLocation = function($id, $marker_index){
+		$scope.showNotes = true;
+		$scope.marker_index = $marker_index;
+		$http.post(SITE + '/Locations/show', {id: $id})
+		.success(function(data) {
+			$scope.location = data;
+			$scope.notes = data.Note;
+			if($scope.notes.length > 0){
+				$scope.noteData = $scope.notes[0];
+			} else {
+				$scope.noteData.id = '';
+				$scope.noteData.title = '';
+				$scope.noteData.description = '';
+				$scope.noteData.location_id = $id;
+			}
+		});
+	}
+
+	$scope.saveNote = function(){
+		$http.post(SITE + '/Notes/create', $scope.noteData)
+		.success(function(data) {
+			if (data.save) {
+				alert('Nota gravada com sucesso');
+			} else {
+				alert('Erro ao gravar nota');
+			}
+		});
+	}
+
+	$scope.deleteLocation = function($id, $marker_index){
+		$http.post(SITE + '/Locations/delete', {id: $id})
+		.success(function(data) {
+			if (data) {
+				markers[$marker_index].setMap(null);
+				$scope.showNotes = false;
+				alert('Local deletado com sucesso');
+			} else {
+				alert('Erro ao deletar nota');
+			}
+		});
+	}
+
+	$scope.formData = {};
+	$scope.showForm;
+
+	$scope.processForm = function() {
+		$http.post(SITE + '/Trips/create', $scope.formData)
+		.success(function(data) {
+			if (data.save) {
+				$scope.message = data.message;
+				$scope.message_type = "green_message";
+				$timeout(function(){
+					$scope.showForm = false;
+				}, 2000);
+			} else {
+				$scope.message = data.message;
+				$scope.message_type = "red_message";
+				// Deu ruim
+			}
+		});
+	};
+
+	$scope.addMapClickEvent = function(){
+		map.setOptions({ draggableCursor: 'copy' });
+		google.maps.event.addListener(map, 'click', function(event) {
+			var marker = new google.maps.Marker({
+				position: event.latLng,
+				map: map
+			});
+
+			// Pesquisa sobre informações como Cidade, estado, país
+			var more_info = googleGeocoding(event.latLng.lat() + ',' + event.latLng.lng());
+
+			$http.post(SITE + '/Locations/create',{
+				latitude: event.latLng.lat(),
+				longitude: event.latLng.lng(),
+				city: more_info.locality,
+				state: more_info.state,
+				country: more_info.country
+			}).success(function(data, status, headers, config) {
+				if(data.save){
+					markers.push(marker);
+					var info_posicao_atual = new google.maps.InfoWindow({
+						content: data.city + '<br />' + data.state
+					});
+					google.maps.event.addListener(marker, 'click', function() {
+						info_posicao_atual.open(map, marker);
+						map.setCenter(marker.getPosition());
+						$scope.showLocation(data.id, markers.length - 1);
+					});
+
+					alert("Novo local salvo com sucesso");
+				} else {
+					alert("Erro ao salvar o novo local");
+				}
+				google.maps.event.clearListeners(map, 'click');
+				map.setOptions({ draggableCursor: 'url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default' });
+			});
+		});
+	};
 }]);
 
 modulo.controller('SearchController', ['$scope', '$http', function($scope, $http){
@@ -78,6 +205,7 @@ modulo.controller('SearchController', ['$scope', '$http', function($scope, $http
 	};
 
 	$scope.findOnMap = function(){
+		$('.link_container').addClass('loading');
 		geocoder.geocode({
 			'address': $scope.formData.search_params
 		}, function (results, status) {
@@ -87,76 +215,18 @@ modulo.controller('SearchController', ['$scope', '$http', function($scope, $http
 			} else {
 				alert("Não foi possível localizar este endereço");
 			}
+			$scope.showResults = false;
+			$('.link_container').removeClass('loading');
 		});
 	};
 
-	$scope.locationClick = function(id){
-		$http.post(SITE + '/Locations/show', {
-			id: id
-		})
-		.success(function(data) {
-			if(! $.isEmptyObject(data) ){
-				var coord = new google.maps.LatLng(data.Location.latitude, data.Location.longitude);
-				var marker = new google.maps.Marker({
-					position: coord,
-					map: map
-				});
-				map.setCenter(coord);
-			} else {
-				alert('Nenhum ponto encontrado');
-			}
-		});
+	$scope.coordSetMap = function(latitude, longitude){
+		location_coords = new google.maps.LatLng(latitude, longitude);
+		map.setCenter(location_coords);
+		$scope.showResults = false;
 	};
 }]);
 
-// Grava as Viagens
-modulo.controller('CreateTripController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
-	$scope.formData = {};
-	$scope.showForm;
-
-	$scope.processForm = function() {
-		$http.post(SITE + '/Trips/create', $scope.formData)
-		.success(function(data) {
-			if (data.save) {
-				$scope.message = data.message;
-				$scope.message_type = "green_message";
-				$timeout(function(){
-					$scope.showForm = false;
-				}, 2000);
-			} else {
-				$scope.message = data.message;
-				$scope.message_type = "red_message";
-				// Deu ruim
-			}
-		});
-	};
-
-	$scope.addMapClickEvent = function(){
-		google.maps.event.addListener(map, 'click', function(event) {
-			var marker = new google.maps.Marker({
-				position: event.latLng,
-				map: map
-			});
-			// Pesquisa sobre informações como Cidade, estado, país
-			var more_info = googleGeocoding(event.latLng.lat() + ',' + event.latLng.lng());
-
-			$http.post(SITE + '/Locations/create',{
-				latitude: event.latLng.lat(),
-				longitude: event.latLng.lng(),
-				city: more_info.locality,
-				state: more_info.state,
-				country: more_info.country
-			}).success(function(data, status, headers, config) {
-				if(data.save){
-					alert("Novo local salvo com sucesso");
-				} else {
-					alert("Erro ao salvar o novo local");
-				}
-				google.maps.event.clearListeners(map, 'click');
-			});
-		});
-	};
-}]);
 
 $(function(){
 

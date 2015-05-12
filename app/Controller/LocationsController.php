@@ -31,12 +31,38 @@ class LocationsController extends AppController {
 			$newObj['Location']['state'] = $params->state;
 			$newObj['Location']['country'] = $params->country;
 			if( $this->Location->save($newObj) ){
-				$response = array('save' => true);
+				$response = array(
+					'save' => true,
+					'id' => $this->Location->id,
+					'city' => $params->city,
+					'state' => $params->state
+				);
 			} else {
 				$response = array('save' => false);
 			}
 			echo json_encode($response);
 		}
+	}
+
+	public function delete(){
+		$this->autoRender = false;
+		$params = json_decode(file_get_contents('php://input'));
+		$response = false;
+
+		if(!empty($params)){
+			if(isset($params->id)){
+				$teste = $this->Location->find('first', array(
+					'conditions' => array('Location.id' => $params->id, 'Location.user_id' => $this->Session->read('current_user')['User']['id'])
+				));
+
+				if(count($teste) > 0){
+					if($this->Location->delete($params->id)){
+						$response = true;
+					}
+				}
+			}
+		}
+		echo json_encode($response);
 	}
 
 	public function show(){
@@ -78,9 +104,15 @@ class LocationsController extends AppController {
 						)
 					)
 				));
+			} else {
+				$response = $this->Location->find('all', array(
+					'conditions' => array(
+						'Location.user_id' => $this->Session->read('current_user')['User']['id']
+					)
+				));
 			}
-			echo json_encode($response);
 		}
+		echo json_encode($response);
 	}
 
 }

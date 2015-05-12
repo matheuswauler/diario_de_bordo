@@ -1,6 +1,30 @@
-<div ng-controller="CurrentLocationController" id="mapa"></div>
+<div ng-controller="CurrentLocationController" class="map_wrapper">
+	<div id="mapa"></div>
 
-<div ng-controller="CreateTripController">
+	<section ng-show="showNotes" class="notes_floater">
+		<header class="clearfix">
+			<h1>
+				<strong>{{location.Location.city}}</strong>
+				<span>{{location.Location.state}}</span>
+			</h1>
+			<a ng-click="deleteLocation(location.Location.id, marker_index)" class="delete_location_link">Deletar</a>
+		</header>
+
+		<article class="note_show" >
+			<form ng-submit="saveNote()">
+				<header class="clearfix">
+					<h1><input type="text" ng-model="noteData.title" name="title" placeholder="Título da nota" /></h1>
+				</header>
+				<div class="test_note"><textarea ng-model="noteData.description" name="description" placeholder="Descrição"></textarea></div>
+
+				<div class="buttons">
+					<a class="cancel_form_submition" ng-click="showNotes = !showNotes" >Cancelar</a>
+					<input type="submit" value="Gravar" />
+				</div>
+			</form>
+		</article>
+	</section>
+
 	<nav class="map_options_wrapper">
 		<div class="plus_options">
 			<a id="new_location" ng-click="addMapClickEvent()" class="plus_option">

@@ -11,20 +11,26 @@
 	<div class="floater_results" ng-show="showResults">
 		<nav class="search_result_set map_set">
 			<a ng-click="findOnMap()">
-				<strong>Procurar no mapa</strong>
-				<span>Centrar o mapa segundo endereço: {{formData.search_params}}</span>
+				<div class="link_container">
+					<strong>Procurar no mapa</strong>
+					<span>Centrar o mapa segundo endereço: {{formData.search_params}}</span>
+				</div>
 			</a>
 		</nav>
 		<nav class="search_result_set location_set">
-			<a ng-click="locationClick(location.Location.id)" ng-repeat="location in locations">
-				<strong>{{location.Location.city}}</strong>
-				<span>{{location.Location.state}} - {{location.Location.country}}</span>
+			<a ng-click="coordSetMap(location.Location.latitude,location.Location.longitude)" ng-repeat="location in locations">
+				<div class="link_container">
+					<strong>{{location.Location.city}}</strong>
+					<span>{{location.Location.state}} - {{location.Location.country}}</span>
+				</div>
 			</a>
 		</nav>
 		<nav class="search_result_set trip_set">
 			<a ng-repeat="trip in trips">
-				<strong>{{trip.Trip.name}}</strong>
-				<span>{{trip.Trip.date}}</span>
+				<div class="link_container">
+					<strong>{{trip.Trip.name}}</strong>
+					<span>{{trip.Trip.date}}</span>
+				</div>
 			</a>
 		</nav>
 	</div>
