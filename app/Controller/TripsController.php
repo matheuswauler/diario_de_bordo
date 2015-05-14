@@ -33,7 +33,8 @@ class TripsController extends AppController {
 			if( $this->Trip->save($newObj) ){
 				$response = array(
 					'save' => true,
-					'message' => 'Viagem cadastrada com sucesso.'
+					'message' => 'Viagem cadastrada com sucesso.',
+					'id' => $this->Trip->id
 				);
 			} else {
 				$errors = "Erro: ";
@@ -61,7 +62,7 @@ class TripsController extends AppController {
 		if(!empty($params)){
 			if(isset($params->id)){
 				$response = $this->Trip->find('first', array(
-					'conditions' => array('Trip.id' => 1, 'Trip.user_id' => $this->Session->read('current_user')['User']['id'])
+					'conditions' => array('Trip.id' => $params->id, 'Trip.user_id' => $this->Session->read('current_user')['User']['id'])
 				));
 			}
 			echo json_encode($response);

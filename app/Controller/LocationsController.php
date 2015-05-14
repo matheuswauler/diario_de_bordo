@@ -27,6 +27,7 @@ class LocationsController extends AppController {
 			$newObj['Location']['user_id'] = $this->Session->read('current_user')['User']['id'];
 			$newObj['Location']['latitude'] = $params->latitude;
 			$newObj['Location']['longitude'] = $params->longitude;
+			$newObj['Location']['trip_id'] = isset($params->trip_id) ? $params->trip_id : null;
 			$newObj['Location']['city'] = $params->city;
 			$newObj['Location']['state'] = $params->state;
 			$newObj['Location']['country'] = $params->country;
@@ -86,6 +87,22 @@ class LocationsController extends AppController {
 		}
 	}
 
+	public function list_trip(){
+		$this->autoRender = false;
+		$params = json_decode(file_get_contents('php://input'));
+		$response = NULL;
+
+		if(!empty($params) && isset($params->trip_id)){
+			$response = $this->Location->find('all', array(
+				'conditions' => array(
+					'Location.user_id' => $this->Session->read('current_user')['User']['id'],
+					'Location.trip_id' => $params->trip_id
+				)
+			));
+		}
+		echo json_encode($response);
+	}
+
 	public function list_all(){
 		$this->autoRender = false;
 		$params = json_decode(file_get_contents('php://input'));
@@ -97,6 +114,7 @@ class LocationsController extends AppController {
 				$response = $this->Location->find('all', array(
 					'conditions' => array(
 						'Location.user_id' => $this->Session->read('current_user')['User']['id'],
+						'Location.trip_id' => isset($params->trip_id) ? $params->trip_id : null,
 						'OR' => array(
 							'Location.city LIKE' => $consulta,
 							'Location.state LIKE' => $consulta,
@@ -107,7 +125,8 @@ class LocationsController extends AppController {
 			} else {
 				$response = $this->Location->find('all', array(
 					'conditions' => array(
-						'Location.user_id' => $this->Session->read('current_user')['User']['id']
+						'Location.user_id' => $this->Session->read('current_user')['User']['id'],
+						'Location.trip_id' => null
 					)
 				));
 			}

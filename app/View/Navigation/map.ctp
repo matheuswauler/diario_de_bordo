@@ -1,5 +1,9 @@
-<div ng-controller="CurrentLocationController" class="map_wrapper">
+
 	<div id="mapa"></div>
+
+	<div id="trip_warning" ng-show="tripShow">
+		Agora você está no mapa da viagem <strong>{{tripObj.Trip.name}}</strong>, para sair <a ng-click="tripManager(tripObj.Trip.id, 'rm')">clique aqui.</a>
+	</div>
 
 	<section ng-show="showNotes" class="notes_floater">
 		<header class="clearfix">
@@ -66,4 +70,3 @@
 			</div>
 		</form>
 	</div>
-</div>

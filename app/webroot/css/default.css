@@ -348,7 +348,7 @@ form fieldset legend{
 	position: relative;
 	z-index: 1;
 }
-.map_wrapper{
+#mapa{
 	height: -webkit-calc(100% - 40px);
 	height: -moz-calc(100% - 40px);
 	height: calc(100% - 40px);
@@ -432,7 +432,7 @@ form fieldset legend{
 .map_options_wrapper{
 	position: absolute;
 	z-index: 10;
-	bottom: 40px;
+	bottom: 20px;
 	right: 20px;
 	width: 60px;
 	height: 60px;
@@ -515,7 +515,7 @@ form fieldset legend{
 .voltar_painel{
 	position: absolute;
 	display: block;
-	bottom: 40px;
+	bottom: 20px;
 	left: 20px;
 	text-decoration: none;
 	z-index: 10;
@@ -682,7 +682,7 @@ input[readonly=readonly]{
 	background: #f9f9f9;
 	position: absolute;
 	z-index: 9;
-	top: 36px;
+	top: 106px;
 	right: 6px;
 	box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
@@ -765,6 +765,29 @@ input[readonly=readonly]{
 .notes_floater .note_show form .buttons .cancel_form_submition{
 	background: #ddd;
 	color: #444;
+}
+
+/*Trips*/
+#trip_warning{
+	position: absolute;
+	top: 70px;
+	width: 20%;
+	left: 40%;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 12px;
+	line-height: 1.3em;
+	text-align: center;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+	z-index: 1;
+	background: #234B93;
+	color: #fff;
+}
+#trip_warning a{
+	color: rgba(255,255,255,0.7);
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 

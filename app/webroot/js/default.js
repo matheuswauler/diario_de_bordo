@@ -29,8 +29,8 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 				info_posicao_atual.open(map, marker);
 
 				$http.post(SITE + '/Locations/show',{
-					latitude: position.coords.latitude,
-					longitude: position.coords.longitude
+					latitude: truncate_decimal(position.coords.latitude, 50),
+					longitude: truncate_decimal(position.coords.longitude, 50)
 				}).success(function(data, status, headers, config){
 					if(data.length == 0){
 						setTimeout(function(){
@@ -87,7 +87,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 		.success(function(data) {
 			$scope.location = data;
 			$scope.notes = data.Note;
-			if($scope.notes.length > 0){
+			if(typeof $scope.notes !== 'undefined' && $scope.notes.length > 0){
 				$scope.noteData = $scope.notes[0];
 			} else {
 				$scope.noteData.id = '';
@@ -124,6 +124,8 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 
 	$scope.formData = {};
 	$scope.showForm;
+	$scope.tripObj = null;
+	$scope.tripShow = false;
 
 	$scope.processForm = function() {
 		$http.post(SITE + '/Trips/create', $scope.formData)
@@ -131,6 +133,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 			if (data.save) {
 				$scope.message = data.message;
 				$scope.message_type = "green_message";
+				$scope.tripManager(data.id, 'add');
 				$timeout(function(){
 					$scope.showForm = false;
 				}, 2000);
@@ -140,6 +143,88 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 				// Deu ruim
 			}
 		});
+	};
+
+	$scope.tripManager = function($id, $act){ // $act aceita add ou rm
+		var log = [];
+		if($act == 'add') {
+			$http.post(SITE + '/Trips/show', {id: $id})
+			.success(function(data) {
+				$scope.tripObj = data;
+
+				angular.forEach(markers, function(value, key) {
+					value.setMap(null);
+				}, log);
+
+				$http.post(SITE + '/Locations/list_trip', {trip_id: $id})
+				.success(function(data){
+					if(data.length > 0){
+						// Este trecho serve para pegar as coordenadas maiores e menores para fazer uma média entre elas e centra o mapa na coordenada central
+						var lat_max = 0;
+						var lng_max = 0;
+						var lat_min = 10000;
+						var lng_min = 10000;
+
+						angular.forEach(data, function(value, key) {
+							lat_max = parseFloat(value.Location.latitude) > lat_max ? parseFloat(value.Location.latitude) : lat_max;
+							lat_min = parseFloat(value.Location.latitude) < lat_min ? parseFloat(value.Location.latitude) : lat_min;
+							lng_max = parseFloat(value.Location.longitude) > lng_max ? parseFloat(value.Location.longitude) : lng_max;
+							lng_min = parseFloat(value.Location.longitude) < lng_min ? parseFloat(value.Location.longitude) : lng_min;
+
+							initialLocation = new google.maps.LatLng(value.Location.latitude, value.Location.longitude);
+							var marker = new google.maps.Marker({
+								position: initialLocation,
+								map: map
+							});
+							markers.push(marker);
+							var info_posicao_atual = new google.maps.InfoWindow({
+								content: value.Location.city + '<br />' + value.Location.state
+							});
+							google.maps.event.addListener(marker, 'click', function() {
+								info_posicao_atual.open(map, marker);
+								map.setCenter(marker.getPosition());
+								$scope.showLocation(value.Location.id, markers.length - 1);
+							});
+						}, log);
+
+						lat_media = ( lat_max + lat_min ) / 2;
+						lng_media = ( lng_max + lng_min ) / 2;
+						map.setCenter(new google.maps.LatLng( lat_media, lng_media ));
+						map.setZoom(13);
+					}
+				});
+
+				$scope.tripShow = true;
+			});
+		} else if($act == 'rm') {
+			$scope.tripObj = null;
+			$scope.tripShow = false;
+
+			angular.forEach(markers, function(value, key) {
+				value.setMap(null);
+			}, log);
+
+			$http.post(SITE + '/Locations/list_all', {})
+			.success(function(data){
+				angular.forEach(data, function(value, key) {
+					initialLocation = new google.maps.LatLng(value.Location.latitude, value.Location.longitude);
+					var marker = new google.maps.Marker({
+						position: initialLocation,
+						map: map
+					});
+					markers.push(marker);
+					var info_posicao_atual = new google.maps.InfoWindow({
+						content: value.Location.city + '<br />' + value.Location.state
+					});
+					google.maps.event.addListener(marker, 'click', function() {
+						info_posicao_atual.open(map, marker);
+						map.setCenter(marker.getPosition());
+						$scope.showLocation(value.Location.id, markers.length - 1);
+					});
+				}, log);
+			});
+		}
+		$scope.showResults = false;
 	};
 
 	$scope.addMapClickEvent = function(){
@@ -156,6 +241,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 			$http.post(SITE + '/Locations/create',{
 				latitude: event.latLng.lat(),
 				longitude: event.latLng.lng(),
+				trip_id: $scope.tripObj == null ? null : $scope.tripObj.Trip.id,
 				city: more_info.locality,
 				state: more_info.state,
 				country: more_info.country
@@ -180,9 +266,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 			});
 		});
 	};
-}]);
 
-modulo.controller('SearchController', ['$scope', '$http', function($scope, $http){
 	$scope.formData = {};
 
 	$scope.executeQuery = function(){
@@ -197,6 +281,7 @@ modulo.controller('SearchController', ['$scope', '$http', function($scope, $http
 			$scope.showResults = true;
 		});
 
+		$scope.formData.trip_id = $scope.tripObj == null ? null : $scope.tripObj.Trip.id;
 		$http.post(SITE + '/Locations/list_all', $scope.formData)
 		.success(function(data) {
 			$scope.locations = data;
@@ -237,6 +322,15 @@ $(function(){
 		plus_control();
 	}
 });
+
+function truncate_decimal($elem, $casas){
+	$elem = $elem.toString().split('.');
+	if($elem.length > 0){
+		$elem[1] = $elem[1].substr(0, $casas);
+	}
+	$elem.join('.');
+	return $elem;
+}
 
 function hide_messages(){
 	$('.message').css('top', '-50px');
