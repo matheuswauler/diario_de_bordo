@@ -5,6 +5,17 @@
 		Agora você está no mapa da viagem <strong>{{tripObj.Trip.name}}</strong>, para sair <a ng-click="tripManager(tripObj.Trip.id, 'rm')">clique aqui.</a>
 	</div>
 
+	<section id="routes" ng-show="routeShow">
+		<div class="route_list">
+			<span class="route_1">{{rota1.Location.city}}</span>
+			<span class="route_2">{{rota2.Location.city}}</span>
+		</div>
+
+		<div class="buttons">
+			<a ng-click="activeRota('deactive')">Cancelar</a>
+		</div>
+	</section>
+
 	<section ng-show="showNotes" class="notes_floater">
 		<header class="clearfix">
 			<h1>
@@ -22,7 +33,7 @@
 				<div class="test_note"><textarea ng-model="noteData.description" name="description" placeholder="Descrição"></textarea></div>
 
 				<div class="buttons">
-					<a class="cancel_form_submition" ng-click="showNotes = !showNotes" >Cancelar</a>
+					<a class="cancel_form_submition" ng-click="showNotes = !showNotes">Cancelar</a>
 					<input type="submit" value="Gravar" />
 				</div>
 			</form>
@@ -38,6 +49,10 @@
 			<a id="new_trip" class="plus_option" ng-click="showForm = !showForm">
 				Nova viagem
 				<?php echo $this->Html->image('icons/trip.svg', array('fullBase' => true, 'alt' => 'Nova viagem')); ?>
+			</a>
+			<a id="new_route" class="plus_option" ng-click="activeRota('active')">
+				Nova rota
+				<?php echo $this->Html->image('icons/route_icon.svg', array('fullBase' => true, 'alt' => 'Nova viagem')); ?>
 			</a>
 		</div>
 		<a class="plus_map" title="Inicie sua interação com o mapa">+</a>

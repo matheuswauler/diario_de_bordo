@@ -467,7 +467,12 @@ form fieldset legend{
 	font-size: 14px;
 	z-index: -1;
 	position: absolute;
-	/*display: none;*/
+	visibility: hidden;
+	transition-delay: 1s;
+}
+.show_opts .plus_options{
+	visibility: visible;
+	transition-delay: 0s;
 }
 .plus_options a{
 	display: block;
@@ -488,6 +493,11 @@ form fieldset legend{
 	-webkit-transform: translate3d(0,1000px,0);
 	transform: translate3d(0,1000px,0);
 }
+.plus_options a:nth-child(3){
+	-webkit-transform: translate3d(0,1500px,0);
+	transform: translate3d(0,1500px,0);
+}
+
 .plus_options a img{
 	vertical-align: middle;
 	margin-left: 10px;
@@ -510,6 +520,10 @@ form fieldset legend{
 .show_opts .plus_options a:nth-child(2):hover{
 	text-shadow: none;
 	background: #77d25b;
+}
+.show_opts .plus_options a:nth-child(3):hover{
+	text-shadow: none;
+	background: #f35f00;
 }
 
 .voltar_painel{
@@ -790,6 +804,41 @@ input[readonly=readonly]{
 	text-decoration: underline;
 }
 
+
+#routes{
+	width: 25%;
+	position: absolute;
+	z-index: 8;
+	top: 76px;
+	left: 6px;
+	background: #F9F9F9;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.route_list{
+	padding: 0 10px;
+	background: url('../img/icons/calc_routes.svg') 10px center no-repeat;
+}
+.route_list span{
+	display: block;
+	padding: 10px 0;
+	margin-left: 30px;
+	font-size: 14px;
+	line-height: 1.6em;
+	height: 1.6em;
+	border-top: 1px solid #DEDEDE;
+}
+.route_list span:first-child{
+	border: 0;
+}
+
+#routes .buttons{
+	border-top: 1px solid #dedede;
+	margin: 0;
+	padding: 10px 0;
+}
+#routes .buttons a{
+	cursor: pointer;
+}
 
 
 

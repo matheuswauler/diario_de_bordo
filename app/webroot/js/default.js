@@ -4,6 +4,9 @@ var browserSupportFlag;
 var geocoder;
 var SITE = '/diario_de_bordo';
 var markers = [];
+var route_flag = false;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
 
 var modulo = angular.module('diario_de_bordo', ['ngMask']);
 
@@ -74,17 +77,23 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 			});
 			google.maps.event.addListener(marker, 'click', function() {
 				info_posicao_atual.open(map, marker);
-				map.setCenter(marker.getPosition());
-				$scope.showLocation(value.Location.id, markers.length - 1);
+				$scope.showLocation(value.Location.id, markers.indexOf(marker));
 			});
 		}, log);
 	});
 
 	$scope.showLocation = function($id, $marker_index){
-		$scope.showNotes = true;
-		$scope.marker_index = $marker_index;
 		$http.post(SITE + '/Locations/show', {id: $id})
 		.success(function(data) {
+			if(route_flag){
+				$scope.addRota(data);
+				return;
+			}
+
+			$scope.showNotes = true;
+			$scope.marker_index = $marker_index;
+			map.setCenter(markers[$marker_index].getPosition());
+
 			$scope.location = data;
 			$scope.notes = data.Note;
 			if(typeof $scope.notes !== 'undefined' && $scope.notes.length > 0){
@@ -160,8 +169,8 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 				.success(function(data){
 					if(data.length > 0){
 						// Este trecho serve para pegar as coordenadas maiores e menores para fazer uma média entre elas e centra o mapa na coordenada central
-						var lat_max = 0;
-						var lng_max = 0;
+						var lat_max = -10000;
+						var lng_max = -10000;
 						var lat_min = 10000;
 						var lng_min = 10000;
 
@@ -182,8 +191,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 							});
 							google.maps.event.addListener(marker, 'click', function() {
 								info_posicao_atual.open(map, marker);
-								map.setCenter(marker.getPosition());
-								$scope.showLocation(value.Location.id, markers.length - 1);
+								$scope.showLocation(value.Location.id, markers.indexOf(marker));
 							});
 						}, log);
 
@@ -218,8 +226,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 					});
 					google.maps.event.addListener(marker, 'click', function() {
 						info_posicao_atual.open(map, marker);
-						map.setCenter(marker.getPosition());
-						$scope.showLocation(value.Location.id, markers.length - 1);
+						$scope.showLocation(value.Location.id, markers.indexOf(marker));
 					});
 				}, log);
 			});
@@ -253,8 +260,7 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 					});
 					google.maps.event.addListener(marker, 'click', function() {
 						info_posicao_atual.open(map, marker);
-						map.setCenter(marker.getPosition());
-						$scope.showLocation(data.id, markers.length - 1);
+						$scope.showLocation(data.id, markers.indexOf(marker));
 					});
 
 					alert("Novo local salvo com sucesso");
@@ -310,6 +316,49 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 		map.setCenter(location_coords);
 		$scope.showResults = false;
 	};
+
+	$scope.rota1 = null;
+	$scope.rota2 = null;
+	$scope.routeShow = false;
+
+	$scope.activeRota = function($act){
+		if($act == 'active'){
+			route_flag = true;
+			$scope.rota1 = null;
+			$scope.rota2 = null;
+			$scope.routeShow = true;
+		} else if($act == 'deactive') {
+			route_flag = false;
+			$scope.rota1 = null;
+			$scope.rota2 = null;
+			$scope.routeShow = false;
+			directionsDisplay.setMap(null);
+		}
+	}
+
+	$scope.addRota = function($data){
+		if($scope.rota1 == null){
+			$scope.rota1 = $data;
+		} else if ($scope.rota2 == null) {
+			$scope.rota2 = $data;
+		}
+
+		if($scope.rota1 != null && $scope.rota2 != null){
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			directionsDisplay.setMap(map);
+			var request = {
+				origin: new google.maps.LatLng($scope.rota1.Location.latitude, $scope.rota1.Location.longitude),
+				destination: new google.maps.LatLng($scope.rota2.Location.latitude, $scope.rota2.Location.longitude),
+				travelMode: google.maps.TravelMode.DRIVING
+			};
+			directionsService.route(request, function(result, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(result);
+				}
+			});
+		}
+	};
+
 }]);
 
 
@@ -348,7 +397,13 @@ function initialize_map(){
 	var mapOptions = {
 		zoom: 16,
 		center: new google.maps.LatLng(0, 0),
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		panControl: false,
+		zoomControl: false,
+		mapTypeControl: true,
+		scaleControl: false,
+		streetViewControl: false,
+		overviewMapControl: false
 	}
 
 	map = new google.maps.Map(document.getElementById("mapa"), mapOptions);
