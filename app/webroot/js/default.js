@@ -20,22 +20,23 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 			initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); // Cria coordenadas google com as coordenadas atuais
 			if(map){ // Verifica se o map está iniciado
 				map.setCenter(initialLocation); // Seta o centro do mapa com a localização atual
-				var marker = new google.maps.Marker({
-					position: initialLocation,
-					map: map,
-					animation: google.maps.Animation.DROP
-				}); // Adiciona um marcador na posição atual
-				marker.setTitle("Posição atual");
-				var info_posicao_atual = new google.maps.InfoWindow({
-					content: 'Você está aqui!'
-				}); // Adiciona um inforbox com a posição atual
-				info_posicao_atual.open(map, marker);
 
 				$http.post(SITE + '/Locations/show',{
-					latitude: truncate_decimal(position.coords.latitude, 50),
-					longitude: truncate_decimal(position.coords.longitude, 50)
+					latitude: truncate_decimal(position.coords.latitude, 3),
+					longitude: truncate_decimal(position.coords.longitude, 3)
 				}).success(function(data, status, headers, config){
 					if(data.length == 0){
+						var marker = new google.maps.Marker({
+							position: initialLocation,
+							map: map,
+							animation: google.maps.Animation.DROP
+						}); // Adiciona um marcador na posição atual
+						marker.setTitle("Posição atual");
+						var info_posicao_atual = new google.maps.InfoWindow({
+							content: 'Você está aqui!'
+						}); // Adiciona um inforbox com a posição atual
+						info_posicao_atual.open(map, marker);
+
 						setTimeout(function(){
 							var confirmation = confirm("Você deseja gravar a sua localização atual como um novo ponto?");
 							if(confirmation){
@@ -49,7 +50,11 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 									state: more_info.state,
 									country: more_info.country
 								}).success(function(data, status, headers, config) {
-									// Salvo com sucesso
+									markers.push(marker);
+									google.maps.event.addListener(marker, 'click', function() {
+										info_posicao_atual.open(map, marker);
+										$scope.showLocation(data.id, markers.indexOf(marker));
+									});
 								});
 							}
 						}, 2000);
@@ -377,8 +382,7 @@ function truncate_decimal($elem, $casas){
 	if($elem.length > 0){
 		$elem[1] = $elem[1].substr(0, $casas);
 	}
-	$elem.join('.');
-	return $elem;
+	return $elem.join('.');
 }
 
 function hide_messages(){
