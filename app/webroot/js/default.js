@@ -395,6 +395,11 @@ $(function(){
 		initialize_map();
 		plus_control();
 	}
+	if(document.getElementById("loading_overlay")){
+		setTimeout(function(){
+			$('#loading_overlay').fadeOut(500);
+		}, 3000);
+	}
 });
 
 function truncate_decimal($elem, $casas){

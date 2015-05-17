@@ -867,6 +867,24 @@ input[readonly=readonly]{
 	cursor: pointer;
 }
 
+#loading_overlay{
+	background: url('../img/loading.svg') center no-repeat #fff;
+	background-size: 50px;
+	color: #999;
+	font-size: 20px;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 9999;
+	box-sizing: border-box;
+}
+#loading_overlay .carregando{
+	position: absolute;
+	top: 55%;
+	width: 100%;
+}
+
 
 
 

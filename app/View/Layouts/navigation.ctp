@@ -2,6 +2,10 @@
 
 <?php echo $this->Session->flash(); ?>
 
+<div id="loading_overlay">
+	<div class="carregando">Carregando...</div>
+</div>
+
 <div class="map_wrapper" ng-controller="CurrentLocationController">
 	<header class="navigation_search_content">
 		<form id="search_place" ng-submit="executeQuery()">
