@@ -69,6 +69,26 @@ class TripsController extends AppController {
 		}
 	}
 
+	public function delete(){
+		$this->autoRender = false;
+		$params = json_decode(file_get_contents('php://input'));
+
+		if(!empty($params)){
+			if(isset($params->id)){
+				$teste = $this->Trip->find('first', array(
+					'conditions' => array('Trip.id' => $params->id, 'Trip.user_id' => $this->Session->read('current_user')['User']['id'])
+				));
+
+				if(count($teste) > 0){
+					if($this->Trip->delete($params->id)){
+						$response = true;
+					}
+				}
+			}
+		}
+		echo json_encode($response);
+	}
+
 	public function list_all(){
 		$this->autoRender = false;
 		$params = json_decode(file_get_contents('php://input'));

@@ -27,12 +27,17 @@
 				</a>
 			</nav>
 			<nav class="search_result_set trip_set">
-				<a ng-click="tripManager(trip.Trip.id, 'add')" ng-repeat="trip in trips">
-					<div class="link_container">
-						<strong>{{trip.Trip.name}}</strong>
-						<span>{{trip.Trip.date}}</span>
-					</div>
-				</a>
+				<ul>
+					<li ng-repeat="trip in trips" class="clearfix">
+						<a ng-click="tripManager(trip.Trip.id, 'add')">
+							<div class="link_container">
+								<strong>{{trip.Trip.name}}</strong>
+								<span>{{trip.Trip.date}}</span>
+							</div>
+						</a>
+						<b ng-click="deleteTrip(trip.Trip.id)"></b>
+					</li>
+				</ul>
 			</nav>
 		</div>
 	</header>

@@ -390,7 +390,7 @@ form fieldset legend{
 	z-index: 10;
 	width: 100%;
 	padding: 0;
-	max-height: 262px;
+	max-height: 263px;
 	overflow: auto;
 	top: 70px;
 	background: rgba(255,255,255,0.9);
@@ -398,6 +398,18 @@ form fieldset legend{
 }
 .floater_results nav.search_result_set{
 	border-top: 1px solid #bbb;
+}
+.floater_results nav.search_result_set ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.floater_results nav.search_result_set ul li{
+	display: block;
+	border-top: 1px solid #DEDEDE;
+}
+.floater_results nav.search_result_set ul li:first-child{
+	border: 0;
 }
 .floater_results nav.search_result_set a{
 	border-top: 1px solid #dedede;
@@ -407,8 +419,23 @@ form fieldset legend{
 	text-decoration: none;
 	line-height: 1.1em;
 	cursor: pointer;
+	box-sizing: border-box;
 }
-.floater_results nav.search_result_set a:first-child{ border-color: white; }
+.floater_results nav.search_result_set ul li a{
+	width: -webkit-calc(100% - 60px);
+	width: -moz-calc(100% - 60px);
+	width: calc(100% - 60px);
+	float: left;
+}
+.floater_results nav.search_result_set ul li b{
+	width: 60px;
+	height: 65px;
+	background: url('../img/icons/trash.svg') center no-repeat;
+	box-sizing: border-box;
+	cursor: pointer;
+	float: left;
+}
+.floater_results nav.search_result_set a:first-child{ border-color: transparent; }
 .map_set a{
 	background: url('../img/icons/mapa.svg') 20px center no-repeat;
 }
@@ -519,11 +546,11 @@ form fieldset legend{
 }
 .show_opts .plus_options a:nth-child(2):hover{
 	text-shadow: none;
-	background: #77d25b;
+	background: #234B93;
 }
 .show_opts .plus_options a:nth-child(3):hover{
 	text-shadow: none;
-	background: #f35f00;
+	background: #77d25b;
 }
 
 .voltar_painel{
@@ -562,7 +589,7 @@ form fieldset legend{
 	box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 .form_viagem h2{
-	color: #77D25B;
+	color: #234B93;
 	font-weight: 300;
 	font-size: 24px;
 	text-align: center;
@@ -602,7 +629,7 @@ form fieldset legend{
 	color: #aaa;
 }
 .form_viagem .form_buttons_wrapper button.save_form_submition{
-	background: #77D25B;
+	background: #234B93;
 	color: #fff;
 }
 

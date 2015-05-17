@@ -239,6 +239,26 @@ modulo.controller('CurrentLocationController', ['$scope', '$http', '$timeout', f
 		$scope.showResults = false;
 	};
 
+	$scope.deleteTrip = function($id){
+		var confirmation = confirm("Você deseja realmente deletar essa viagem? Isso excluirá todos os dados relacionados a ela permanentemente.");
+		if(confirmation){
+			if($scope.tripObj != null && $scope.tripObj.Trip.id == $id){
+				$scope.tripManager($id, 'rm');
+			}
+
+			$http.post(SITE + '/Trips/delete',{
+				id: $id
+			}).success(function(data, status, headers, config) {
+				if(data == 'true'){
+					$scope.showResults = false;
+					alert('Viagem excluida com sucesso');
+				} else {
+					alert('Erro ao excluir a viagem');
+				}
+			});
+		}
+	}
+
 	$scope.addMapClickEvent = function(){
 		map.setOptions({ draggableCursor: 'copy' });
 		google.maps.event.addListener(map, 'click', function(event) {
