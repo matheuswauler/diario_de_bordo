@@ -407,6 +407,7 @@ form fieldset legend{
 .floater_results nav.search_result_set ul li{
 	display: block;
 	border-top: 1px solid #DEDEDE;
+	overflow: hidden;
 }
 .floater_results nav.search_result_set ul li:first-child{
 	border: 0;

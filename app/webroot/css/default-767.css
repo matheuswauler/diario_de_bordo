@@ -42,4 +42,43 @@
 	.excluir_conta, .update_form .submit input{
 		width: 100%;
 	}
+
+	.navigation_search_content{
+		height: 49px;
+	}
+	.navigation_search_content input[type=search]{
+		font-size: 16px;
+		padding: 15px;
+		width: 85%;
+	}
+	.navigation_search_content input[type=submit]{
+		width: 15%;
+		height: 49px;
+	}
+
+	.floater_results{
+		top: 49px;
+	}
+	.notes_floater{
+		width: 90%;
+		right: 5%;
+		top: 86px;
+	}
+
+	#mapa{
+		height: -webkit-calc(100% - 20px);
+		height: -moz-calc(100% - 20px);
+		height: calc(100% - 20px);
+	}
+
+	#trip_warning{
+		width: 60%;
+		left: 20%;
+		top: 49px;
+	}
+
+	#routes{
+		top: 55px;
+		width: 65%;
+	}
 }
