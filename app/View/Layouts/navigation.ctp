@@ -9,7 +9,7 @@
 <div class="map_wrapper" ng-controller="CurrentLocationController">
 	<header class="navigation_search_content">
 		<form id="search_place" ng-submit="executeQuery()">
-			<input type="search" name="s" ng-model="formData.search_params" ng-keyup="executeQuery()" autocomplete="off" placeholder="Pesquise o que quiser..." />
+			<input type="search" name="s" ng-model="formData.search_params" ng-keyup="executeQuery()" autocomplete="off" placeholder="Inicie sua procura..." />
 			<input type="submit" value="" />
 		</form>
 
