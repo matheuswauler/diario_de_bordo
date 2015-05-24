@@ -25,7 +25,7 @@
 			<nav class="search_result_set location_set">
 				<a ng-click="coordSetMap(location.Location.latitude,location.Location.longitude)" ng-repeat="location in locations">
 					<div class="link_container">
-						<strong>{{location.Location.city}}</strong>
+						<strong>{{location.Location.city}} - {{location.Note[0].title}}</strong>
 						<span>{{location.Location.state}} - {{location.Location.country}}</span>
 					</div>
 				</a>

@@ -119,8 +119,18 @@ class LocationsController extends AppController {
 							'Location.city LIKE' => $consulta,
 							'Location.state LIKE' => $consulta,
 							'Location.country LIKE' => $consulta,
+							'Note.title LIKE' => $consulta
 						)
-					)
+					),
+					'joins' => array(
+						array(
+							'table' => 'notes',
+							'alias' => 'Note',
+							'type' => 'left',  //join of your choice left, right, or inner
+							'foreignKey' => true,
+							'conditions' => array('Note.location_id=Location.id')
+						),
+					),
 				));
 			} else {
 				$response = $this->Location->find('all', array(

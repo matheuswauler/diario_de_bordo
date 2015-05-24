@@ -298,17 +298,19 @@ form fieldset legend{
 }
 
 .minha_conta_links{
+	text-align: center;
 	margin: 50px 0 100px 0;
 }
 .minha_conta_links a{
 	width: 31%;
-	float: left;
-	display: block;
+	/*float: left;*/
+	display: inline-block;
 	height: 300px;
 	overflow: hidden;
 	color: #fff;
 	text-decoration: none;
 	text-align: center;
+	margin: 0 30px;
 	transition: background-size 0.4s ease;
 }
 .minha_conta_links a.meu_mapa{ background: url('../img/icons/meu_mapa.svg') center 10px no-repeat #35a1fc; background-size: 200px; }
