@@ -53,7 +53,7 @@
 				O Diário de Bordo é válido para o mundo inteiro!
 			</p>
 			<p>
-				Faça aquela sua viagem para a Europa que está sendo planejada há anos. Apreite e deixe todo o seu roteiro de viagem que a gente cuida dele pra você, sem complicação, super rápido. Não gaste espaço da sua mala carregando guias e GPS pra lá e pra cá, leve apenas o seu celular ou notebook e tenha acesso a tudo isso e muito mais!
+				Faça aquela sua viagem para a Europa que está sendo planejada há anos. Aproveite e deixe todo o seu roteiro de viagem que a gente cuida dele pra você, sem complicação, super rápido. Não gaste espaço da sua mala carregando guias e GPS pra lá e pra cá, leve apenas o seu celular ou notebook e tenha acesso a tudo isso e muito mais!
 			</p>
 		</div>
 	</div>
